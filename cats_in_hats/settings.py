@@ -30,8 +30,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
+
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-g+s(9=5n%9)=bv%$4^%51g#7+^k8fk)*553!9zaipbh*07a6oo'
+# Load secret key from secret.py if it exists
+secret_path = os.path.join(str(BASE_DIR), 'secret.py')
+if os.path.exists(secret_path):
+    sys.path.insert(0, str(BASE_DIR))
+    import secret  # noqa: F401
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'replace_with_your_secret_key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -131,10 +137,13 @@ USE_I18N = True
 USE_TZ = True
 
 
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
-
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    BASE_DIR / 'main' / 'static',
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
