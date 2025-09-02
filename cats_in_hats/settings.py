@@ -43,7 +43,8 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'replace_with_your_secret_key')
 DEBUG = False
 
 ALLOWED_HOSTS = [
-    'catsinhatsplayingwithbats.herokuapp.com',
+    'catsinhatsplayingwithbats-5619216fa63c.herokuapp.com',
+    
 ]
 
 # For Heroku SSL support
