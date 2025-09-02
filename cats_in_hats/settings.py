@@ -40,9 +40,11 @@ if os.path.exists(secret_path):
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'replace_with_your_secret_key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'your-app-domain.com',  # Replace with your deployment domain
+]
 
 
 # Application definition
@@ -59,6 +61,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -141,6 +144,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(str(BASE_DIR), 'staticfiles')
 STATICFILES_DIRS = [
     BASE_DIR / 'main' / 'static',
 ]
@@ -149,3 +153,8 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Gunicorn configuration
+bind = "0.0.0.0:8000"
+workers = 3
+timeout = 30
