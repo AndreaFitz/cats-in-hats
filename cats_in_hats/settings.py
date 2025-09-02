@@ -43,8 +43,11 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'replace_with_your_secret_key')
 DEBUG = False
 
 ALLOWED_HOSTS = [
-    'your-app-domain.com',  # Replace with your deployment domain
+    'catsinhatsplayingwithbats-5619216fa63c.herokuapp.com',
 ]
+
+# For Heroku SSL support
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 
 # Application definition
